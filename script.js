@@ -1,9 +1,1 @@
-const toggle=document.querySelector('.menu-toggle'), links=document.querySelector('.nav-links');
-toggle?.addEventListener('click',()=>links.classList.toggle('open'));
-document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
-const filters=document.querySelectorAll('.filter'), cards=document.querySelectorAll('.drink-card');
-filters.forEach(btn=>btn.addEventListener('click',()=>{
-  filters.forEach(x=>x.classList.remove('active')); btn.classList.add('active');
-  const f=btn.dataset.filter;
-  cards.forEach(card=>card.style.display=(f==='all'||card.dataset.category===f)?'block':'none');
-}));
+const cart=[];const count=document.getElementById("cartCount");const list=document.getElementById("cartList");const panel=document.getElementById("cartPanel");document.querySelectorAll(".add-btn").forEach(btn=>btn.addEventListener("click",()=>{cart.push(btn.dataset.name);count.textContent=cart.length;list.innerHTML=cart.map(i=>`<li>${i}</li>`).join("");panel.classList.add("open")}));document.getElementById("cartBtn").addEventListener("click",()=>panel.classList.add("open"));document.getElementById("closeCart").addEventListener("click",()=>panel.classList.remove("open"));
