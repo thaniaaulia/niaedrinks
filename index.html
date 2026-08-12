@@ -3,61 +3,106 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NIAÉ — Sip the Good Vibes</title>
+  <meta name="description" content="Niae Drinks — minuman kekinian Gen Z di Cibinong, Bogor.">
+  <title>Niae Drinks — Sip Your Mood</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="navbar">
-  <a class="logo" href="#">NIAÉ <small>SIP THE GOOD VIBES</small></a>
-  <nav><a class="active" href="#">Home</a><a href="#menu">Menu</a><a href="#about">About Us</a><a href="#story">Our Story</a><a href="#contact">Contact</a></nav>
-  <div class="nav-actions"><button id="searchBtn">⌕</button><button id="bagBtn">♧ <b id="bagCount">0</b></button><a href="#menu" class="order">Order Now</a></div>
-</header>
+  <header class="navbar">
+    <a class="logo" href="#home"><span>niae</span> drinks<span class="dot">.</span></a>
+    <nav id="navMenu">
+      <a href="#home">Home</a><a href="#menu">Menu</a><a href="#about">About</a><a href="#promo">Promo</a><a href="#contact">Contact</a>
+    </nav>
+    <a class="nav-order" href="#menu">Order Now <span>↗</span></a>
+    <button class="menu-toggle" aria-label="Buka menu">☰</button>
+  </header>
 
-<main>
-<section class="hero">
-  <div class="hero-copy">
-    <span class="pill">DRINKS FOR GEN Z ♡</span>
-    <h1>Good Drinks,<br><em>Good Vibes</em> ♡</h1>
-    <p>Minuman kekinian dengan rasa yang fresh, tampilan yang aesthetic, dan vibes yang pas buat kamu. Teman terbaik di setiap momen seru!</p>
-    <div class="hero-buttons"><a href="#menu" class="btn pink-btn">See Our Menu →</a><a href="#story" class="watch">▷ &nbsp; Watch Video</a></div>
-    <div class="mini-features">
-      <span>♡ <strong>Fresh Ingredients</strong><small>Bahan segar pilihan setiap hari</small></span>
-      <span>◉ <strong>Aesthetic & Insta Worthy</strong><small>Tampilan kece untuk feed terbaikmu</small></span>
-      <span>♡ <strong>Made with Love</strong><small>Dibuat sepenuh hati untuk kamu</small></span>
-    </div>
-  </div>
-  <div class="hero-image"><img src="assets/niae-drinks.png" alt="NIAÉ colorful Gen Z drinks"></div>
-</section>
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">✦ YOUR DAILY HAPPY SIP</p>
+        <h1>Good mood,<br><em>in every sip.</em></h1>
+        <p class="hero-text">Minuman kekinian buat nemenin hari kamu. Fresh, playful, dan dibuat khusus buat mood kamu yang nggak pernah boring.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#menu">Explore Menu <span>→</span></a>
+          <a class="btn secondary" href="#about">Our Story</a>
+        </div>
+        <div class="hero-meta"><span>★ 4.9/5</span><span>•</span><span>Loved by Gen Z</span></div>
+      </div>
+      <div class="hero-art">
+        <div class="blob"></div>
+        <div class="sticker">sip<br>sip<br>hooray!</div>
+        <div class="drink drink-one"><div class="cup-top"></div><div class="cup-body"><span>niae</span></div></div>
+        <div class="drink drink-two"><div class="cup-top"></div><div class="cup-body"><span>niae</span></div></div>
+        <div class="sparkle s1">✦</div><div class="sparkle s2">✧</div><div class="sparkle s3">✦</div>
+      </div>
+    </section>
 
-<section class="stats" id="about">
-  <div><i>☺</i><strong>10K+</strong><b>Happy Customers</b><small>Thanks for loving our drinks!</small></div>
-  <div><i>♧</i><strong>25+</strong><b>Signature Drinks</b><small>Varian rasa unik yang bikin nagih</small></div>
-  <div><i>♡</i><strong>100%</strong><b>Quality Ingredients</b><small>Kami pilih bahan terbaik</small></div>
-  <div><i>✦</i><strong>Daily Fresh</strong><b>Made Every Day</b><small>Selalu fresh, selalu siap</small></div>
-</section>
+    <section class="marquee"><div>FRESH • FUN • FLAVORFUL • MADE WITH LOVE • FRESH • FUN • FLAVORFUL • MADE WITH LOVE •</div></section>
 
-<section class="menu" id="menu">
-  <div class="menu-intro">
-    <p class="eyebrow">OUR BEST PICKS</p>
-    <h2>Favorite Drinks ♡</h2>
-    <p>Pilihan favorit Gen Z dengan rasa yang bikin mood naik setiap saat!</p>
-    <button class="view">View All Menu →</button>
-  </div>
-  <div class="cards">
-    <article><div class="drink-photo strawberry"><div class="cup">NIAÉ</div></div><h3>Strawberry Cloud</h3><p>Strawberry milk with cream & popping boba</p><strong>Rp 22.000</strong><button class="add">+</button></article>
-    <article><div class="drink-photo brown"><div class="cup">NIAÉ</div></div><h3>Brown Sugar Boba</h3><p>Brown sugar milk with chewy boba</p><strong>Rp 20.000</strong><button class="add">+</button></article>
-    <article><div class="drink-photo blue"><div class="cup">NIAÉ</div></div><h3>Blueberry Fizz</h3><p>Blueberry sparkling with lemonade</p><strong>Rp 21.000</strong><button class="add">+</button></article>
-    <article><div class="drink-photo matcha"><div class="cup">NIAÉ</div></div><h3>Matcha Latte</h3><p>Creamy matcha with fresh milk</p><strong>Rp 20.000</strong><button class="add">+</button></article>
-  </div>
-</section>
+    <section id="menu" class="section menu-section">
+      <div class="section-head">
+        <div><p class="eyebrow">OUR FAVORITES</p><h2>Pick your <em>mood.</em></h2></div>
+        <p>Scroll, choose, sip.<br>Easy peasy.</p>
+      </div>
+      <div class="filters">
+        <button class="filter active" data-filter="all">All</button>
+        <button class="filter" data-filter="milk">Creamy</button>
+        <button class="filter" data-filter="tea">Tea</button>
+        <button class="filter" data-filter="fruit">Fresh</button>
+      </div>
+      <div class="menu-grid">
+        <article class="card" data-category="milk">
+          <div class="product pink"><span class="mini-label">BEST SELLER</span><div class="cup-illustration">🍓</div></div>
+          <div class="card-info"><div><h3>Strawberry Cloud</h3><p>Strawberry · Milk · Cream</p></div><strong>18K</strong></div>
+          <button class="add-order" data-item="Strawberry Cloud">+</button>
+        </article>
+        <article class="card" data-category="tea">
+          <div class="product blue"><span class="mini-label">FAN FAVE</span><div class="cup-illustration">🫐</div></div>
+          <div class="card-info"><div><h3>Blueberry Dream</h3><p>Blueberry · Tea · Cream</p></div><strong>20K</strong></div>
+          <button class="add-order" data-item="Blueberry Dream">+</button>
+        </article>
+        <article class="card" data-category="fruit">
+          <div class="product ivory"><span class="mini-label">FRESH PICK</span><div class="cup-illustration">🍋</div></div>
+          <div class="card-info"><div><h3>Yuzu Fizz</h3><p>Yuzu · Soda · Citrus</p></div><strong>17K</strong></div>
+          <button class="add-order" data-item="Yuzu Fizz">+</button>
+        </article>
+        <article class="card" data-category="milk">
+          <div class="product lavender"><span class="mini-label">NEW</span><div class="cup-illustration">🍵</div></div>
+          <div class="card-info"><div><h3>Matcha Mellow</h3><p>Matcha · Oat · Cream</p></div><strong>22K</strong></div>
+          <button class="add-order" data-item="Matcha Mellow">+</button>
+        </article>
+      </div>
+    </section>
 
-<section class="story" id="story"><div><p class="eyebrow">OUR VIBE</p><h2>Pour happiness.<br><em>Share the vibe.</em></h2><p>NIAÉ hadir untuk bikin momen sederhana terasa lebih seru. Karena satu minuman yang enak bisa jadi awal dari cerita yang menyenangkan.</p></div></section>
-</main>
+    <section id="about" class="about section">
+      <div class="about-card">
+        <p class="eyebrow">WHY NIAE?</p>
+        <h2>Not just a drink.<br><em>It's a little happy.</em></h2>
+        <p>Niae Drinks lahir dari satu ide sederhana: setiap hari pantas punya rasa yang lebih seru. Kami bikin minuman yang colorful, fresh, dan cocok banget buat nemenin hangout, belajar, atau me-time.</p>
+        <div class="stats"><div><b>15+</b><span>Flavors</span></div><div><b>4.9★</b><span>Rating</span></div><div><b>100%</b><span>Happy vibes</span></div></div>
+      </div>
+      <div class="about-note"><span>♡</span><p>made for<br>your main<br>character era.</p></div>
+    </section>
 
-<footer id="contact"><div class="logo">NIAÉ <small>SIP THE GOOD VIBES</small></div><p>Fresh drinks for your everyday mood ♡</p><small>© 2026 NIAÉ</small></footer>
-<script src="script.js"></script>
+    <section id="promo" class="promo section">
+      <div><p class="eyebrow">TODAY'S LITTLE TREAT</p><h2>Buy 2,<br><em>get happy.</em></h2><p>Mix & match any two drinks and get a special deal. Because one sip is never enough.</p><a class="btn dark" href="https://wa.me/6285150902707?text=Halo%20kakak%20aku%20mau%20pesen%20dong....." target="_blank" rel="noopener">Claim via WhatsApp →</a></div>
+      <div class="promo-badge">GOOD<br>VIBES<br>ONLY ✦</div>
+    </section>
+
+    <section id="contact" class="contact section">
+      <div><p class="eyebrow">COME SAY HI</p><h2>See you at<br><em>Niae Drinks!</em></h2></div>
+      <div class="contact-info"><p>📍 Cibinong, Bogor</p><p>⏰ Mon–Sun · 10.00–22.00</p><a href="https://wa.me/6285150902707" target="_blank" rel="noopener">💬 Chat on WhatsApp</a></div>
+    </section>
+  </main>
+
+  <footer><div class="logo"><span>niae</span> drinks<span class="dot">.</span></div><p>sip your mood ✦</p><small>© 2026 Niae Drinks. Made with good vibes.</small></footer>
+
+  <a class="wa-float" href="https://wa.me/6285150902707?text=Halo%20kakak%20aku%20mau%20pesen%20dong....." target="_blank" rel="noopener" aria-label="Chat WhatsApp">◉<span>Order via WA</span></a>
+  <div class="toast" id="toast">Ditambahkan! Mengarahkan ke WhatsApp…</div>
+  <script src="script.js"></script>
 </body>
 </html>
