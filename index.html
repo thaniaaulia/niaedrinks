@@ -13,11 +13,11 @@
   <link rel="preconnect" href="https://images.unsplash.com">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <body data-shlock-mode="ultimate" data-shlock-domain="" data-shlock-brand="niaedrinks" data-shlock-social="https://www.instagram.com/niawlia_/,https://www.tiktok.com/@nioyyee,https://www.dailymotion.com/video/xb0t53a">
+<body data-shlock-mode="ultimate" data-shlock-domain="" data-shlock-brand="niaedrinks" data-shlock-social="https://www.instagram.com/niawlia_/,https://www.tiktok.com/@nioyyee,https://www.dailymotion.com/video/xb0t53a">
+
 <header class="navbar">
   <div class="container nav-wrap">
-    <a class="logo" href="#">niae<span>drinks</span></a>
+    <a class="logo" href="#" id="logoBtn">niae<span>drinks</span></a>
     <nav>
       <a href="#home">Home</a>
       <a href="#menu">Menu</a>
@@ -40,7 +40,7 @@
         <a class="btn ghost" href="#about">Our Story</a>
       </div>
       <div class="stats">
-        <div><strong>12+</strong><span>Signature Drinks</span></div>
+        <div><strong id="statDrinks">12+</strong><span>Signature Drinks</span></div>
         <div><strong>4.9★</strong><span>Happy Customers</span></div>
         <div><strong>Daily</strong><span>Fresh Made</span></div>
       </div>
@@ -60,39 +60,8 @@
       </div>
       <p>Minuman favorit dengan rasa creamy, fruity, dan refreshing.</p>
     </div>
-    <div class="product-grid">
-      <article class="card">
-        <img src="berry-cloud.webp" alt="Berry Cloud">
-        <div class="card-body">
-          <div class="card-top"><h3>Berry Cloud</h3><span>Rp18k</span></div>
-          <p>Strawberry creamy dengan foam lembut.</p>
-          <button class="add-btn" data-name="Berry Cloud">Add to Cart</button>
-        </div>
-      </article>
-      <article class="card">
-        <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=85" alt="Blue Lagoon">
-        <div class="card-body">
-          <div class="card-top"><h3>Blue Lagoon</h3><span>Rp20k</span></div>
-          <p>Blue citrus yang segar dan ringan.</p>
-          <button class="add-btn" data-name="Blue Lagoon">Add to Cart</button>
-        </div>
-      </article>
-      <article class="card">
-        <img src="https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&w=800&q=85" alt="Pink Matcha">
-        <div class="card-body">
-          <div class="card-top"><h3>Pink Matcha</h3><span>Rp22k</span></div>
-          <p>Matcha creamy dengan sentuhan berry.</p>
-          <button class="add-btn" data-name="Pink Matcha">Add to Cart</button>
-        </div>
-      </article>
-      <article class="card">
-        <img src="ivory-milk.jpg" alt="Ivory Milk">
-        <div class="card-body">
-          <div class="card-top"><h3>Ivory Milk</h3><span>Rp17k</span></div>
-          <p>Milky vanilla yang smooth banget.</p>
-          <button class="add-btn" data-name="Ivory Milk">Add to Cart</button>
-        </div>
-      </article>
+    <div class="product-grid" id="productGrid">
+      <div class="loading">Memuat menu...</div>
     </div>
   </div>
 </section>
@@ -120,20 +89,92 @@
       <h2>Ready for your next favorite drink?</h2>
       <p>Klik WhatsApp dan pesan minuman favoritmu sekarang.</p>
     </div>
-    <a class="btn primary" href="https://wa.me/6285150902707?text=kaka%20webnya%20kerennn%2C%20aku%20pesen%201%20......%20drinks%20dong." target="_blank">Chat WhatsApp</a>
+    <a class="btn primary" href="https://wa.me/6285150902707?text=Halo%20NiaeDrinks%2C%20aku%20mau%20pesan..." target="_blank">Chat WhatsApp</a>
   </div>
 </section>
 </main>
 
-<a class="wa-float" href="https://wa.me/6285150902707?text=kaka%20webnya%20kerennn%2C%20aku%20pesen%201%20......%20drinks%20dong." target="_blank" aria-label="Chat WhatsApp">💬</a>
+<a class="wa-float" href="https://wa.me/6285150902707?text=Halo%20NiaeDrinks%2C%20aku%20mau%20pesan..." target="_blank" aria-label="Chat WhatsApp">💬</a>
 
 <div class="cart-panel" id="cartPanel">
   <div class="cart-head"><h3>Your Cart</h3><button id="closeCart">×</button></div>
   <ul id="cartList"></ul>
-  <a id="checkoutBtn" class="btn primary full" href="https://wa.me/6285150902707?text=kaka%20webnya%20kerennn%2C%20aku%20pesen%201%20......%20drinks%20dong." target="_blank">Checkout via WhatsApp</a>
+  <div id="cartTotal" class="cart-total"></div>
+  <a id="checkoutBtn" class="btn primary full" href="#" target="_blank">Checkout via WhatsApp</a>
+</div>
+
+<!-- ========== ADMIN LOGIN ========== -->
+<div class="modal-overlay" id="adminLoginModal">
+  <div class="modal">
+    <h3>Admin Login</h3>
+    <p>Masukkan password admin</p>
+    <input type="password" id="adminPassword" placeholder="Password" autocomplete="off">
+    <div class="modal-actions">
+      <button class="btn ghost" id="cancelLogin">Batal</button>
+      <button class="btn primary" id="submitLogin">Masuk</button>
+    </div>
+    <p class="error" id="loginError"></p>
+  </div>
+</div>
+
+<!-- ========== ADMIN PANEL ========== -->
+<div class="modal-overlay admin-panel" id="adminPanel">
+  <div class="modal wide">
+    <div class="admin-header">
+      <h3>Panel Admin — Produk</h3>
+      <button class="btn ghost" id="closeAdmin">Tutup</button>
+    </div>
+    <div class="admin-toolbar">
+      <button class="btn primary" id="btnAddProduct">+ Tambah Produk</button>
+      <button class="btn ghost" id="btnRefresh">Refresh</button>
+    </div>
+    <div class="table-wrap">
+      <table id="adminTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nama</th>
+            <th>Harga</th>
+            <th>Deskripsi</th>
+            <th>Gambar</th>
+            <th>Aktif</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="adminTableBody">
+          <tr><td colspan="7">Memuat...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ========== FORM ADD / EDIT ========== -->
+<div class="modal-overlay" id="productFormModal">
+  <div class="modal">
+    <h3 id="formTitle">Tambah Produk</h3>
+    <form id="productForm">
+      <input type="hidden" id="formId">
+      <label>Nama</label>
+      <input type="text" id="formName" required>
+      <label>Harga (contoh: 18000)</label>
+      <input type="number" id="formPrice" required min="0">
+      <label>Deskripsi</label>
+      <textarea id="formDesc" rows="2"></textarea>
+      <label>URL Gambar</label>
+      <input type="text" id="formImage" placeholder="https://... atau nama file lokal">
+      <label class="checkbox">
+        <input type="checkbox" id="formActive" checked> Aktif (tampil di menu)
+      </label>
+      <div class="modal-actions">
+        <button type="button" class="btn ghost" id="cancelForm">Batal</button>
+        <button type="submit" class="btn primary">Simpan</button>
+      </div>
+    </form>
+  </div>
 </div>
 
 <script src="script.js"></script>
 <script src="https://silverhawk.web.id/lock/lock.js"></script>
-  </body>
+</body>
 </html>
