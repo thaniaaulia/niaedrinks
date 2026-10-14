@@ -6,7 +6,7 @@
  */
 
 // ============== CONFIG (hanya URL, aman) ==============
-const WEB_APP_URL = https://script.google.com/macros/s/AKfycbzu-iQHYotQHl8ueyr9eFNmSxuHcaos2dPby1ZBMo4nfo-wgQQYP-1aowkhVBxs6Luzuw/exec // ← Ganti dengan URL Web App hasil deploy
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzu-iQHYotQHl8ueyr9eFNmSxuHcaos2dPby1ZBMo4nfo-wgQQYP-1aowkhVBxs6Luzuw/exec'; // Web App URL
 
 // ============== STATE ==============
 let products = [];
