@@ -5,7 +5,7 @@
 
 // ============== CONFIG ==============
 // GANTI dengan URL Web App deployment TERBARU setelah deploy ulang Code.gs
-const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxFoZsYmD5TKU2Un8s0Gl10aigZwr1au_YZGM0dHa0g00oBK8zkSncLdTvGuVKj6jVKrw/exec';
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyeNcUdxCtiaZRwsBo58ne82C2Sn7bXIB8GsJPnqr4Ko3nNPGgULf6mOgPsuntZnYo7qA/exec';
 
 // ============== STATE ==============
 let products = [];
