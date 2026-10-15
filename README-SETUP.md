@@ -1,64 +1,56 @@
-# NiaeDrinks — Setup Google Sheets + Admin Panel
+# NiaeDrinks — Setup (versi jelas 1 spreadsheet)
 
-## Langkah Setup
+## Spreadsheet yang DIPAKAI
+Hanya satu ini:
 
-### 1. Buat project Apps Script
-1. Buka https://script.google.com → **New project**
-2. Hapus kode default, paste seluruh isi **Code.gs**
-3. Simpan (Ctrl+S), beri nama misalnya `NiaeDrinks Backend`
+https://docs.google.com/spreadsheets/d/1P5YPbWzCnhbWbwbi65r5dgwocJcwBjIHCjRM7QlK0Z0/edit
 
-### 2. Jalankan setupDatabase
-1. Di dropdown fungsi (atas), pilih **`setupDatabase`**
-2. Klik **Run** ▶️
-3. Kalau muncul izin:
-   - Review permissions → pilih akun → **Advanced** → **Go to ... (unsafe)** → **Allow**
-4. Buka **View → Executions**
-5. Harus ada log:
-   ```
-   1/5 Password admin diset
-   2/5 Spreadsheet BARU dibuat
-   ...
-   🎉 SETUP SELESAI!
-   Jumlah baris di sheet: 5
-   Spreadsheet URL: https://docs.google.com/...
-   ```
-6. **Klik link Spreadsheet URL** di log itu → pastikan sheet `Products` ada isinya (4 produk)
-
-### 3. Kalau sheet masih kosong
-Jalankan fungsi **`forceSeedData`** (pilih di dropdown lalu Run).
-
-Atau jalankan **`showSpreadsheetUrl`** untuk lihat link spreadsheet yang dipakai.
-
-### 4. Deploy Web App
-1. **Deploy** → **New deployment**
-2. Type: **Web app**
-3. Execute as: **Me**
-4. Who has access: **Anyone**
-5. Deploy → copy **Web app URL**
-
-### 5. Update frontend
-Di file **script.js**, ganti:
-```js
-const WEB_APP_URL = 'YOUR_WEB_APP_URL';
-```
-dengan URL Web App tadi.
-
-Upload ke GitHub Pages.
+Spreadsheet lain (1W7Tx6Qad...) **TIDAK dipakai**. Abaikan saja.
 
 ---
 
-## Cara pakai Admin
-- Klik logo **niaedrinks** sebanyak **4 kali** berturut-turut
-- Password: `Bismillaah`
-- CRUD produk langsung dari panel
+## Urutan wajib di Apps Script
 
-## Troubleshooting Sheet Kosong
+### 1. Paste Code.gs terbaru
+Hapus semua kode lama → paste Code.gs dari zip ini → Save.
 
-| Gejala | Solusi |
-|--------|--------|
-| Log bilang SETUP SELESAI tapi sheet kosong | Jalankan `forceSeedData` |
-| Tidak tahu spreadsheet mana | Jalankan `showSpreadsheetUrl`, buka linknya |
-| Error permission | Ulangi Allow (Advanced → Go to unsafe) |
-| Data lama menumpuk | `setupDatabase` akan clear lalu isi ulang |
+### 2. Kunci spreadsheet (sekali)
+- Dropdown fungsi → pilih **`setSpreadsheetId`**
+- Klik **Run**
+- View → Executions → pastikan log bilang URL spreadsheet di atas
 
-Password & Spreadsheet ID disimpan di **Project Settings → Script properties**. Tidak pernah ada di GitHub.
+### 3. Buat sheet + data
+- Dropdown → **`setupDatabase`**
+- Klik **Run**
+- Buka spreadsheet di atas → harus ada sheet **Products** berisi 4 produk
+
+### 4. Cek (opsional)
+- Jalankan **`whichSpreadsheet`** → lihat log URL-nya
+- Atau **`forceSeedData`** kalau data masih kosong
+
+### 5. Deploy Web App
+1. Deploy → **New deployment** (penting: New, bukan Manage yang lama)
+2. Type: Web app
+3. Execute as: **Me**
+4. Who has access: **Anyone**
+5. Deploy → **copy URL baru**
+6. Paste URL itu ke `script.js` baris:
+   ```js
+   const WEB_APP_URL = 'https://script.google.com/macros/s/...../exec';
+   ```
+7. Upload script.js ke GitHub Pages
+
+---
+
+## Kenapa dulu bingung?
+- Kamu buka Apps Script dari spreadsheet **1W7Tx6Qad...** (container-bound)
+- Sementara script menyimpan data ke spreadsheet yang ID-nya di Script Properties
+- Sekarang ID dikunci ke **1P5YPbWz...** saja
+
+## Admin panel
+Klik logo **niaedrinks** 4x → password: `Bismillaah`
+
+## Kalau CRUD masih gagal
+1. Pastikan sudah **New deployment** setelah ubah Code.gs
+2. WEB_APP_URL di script.js harus URL deployment terbaru
+3. Jalankan `whichSpreadsheet` → pastikan URL-nya 1P5YPbWz...

@@ -1,153 +1,165 @@
 /**
  * NiaeDrinks Backend - Google Apps Script
- * Spreadsheet & headers digenerate otomatis.
- * Password admin disimpan di Script Properties.
  *
- * CARA PAKAI:
- * 1. Jalankan setupDatabase() sekali
- * 2. Cek log (View → Executions) — harus ada "SETUP SELESAI"
- * 3. Deploy sebagai Web App
+ * PENTING: Script ini akan MENULIS ke spreadsheet yang ID-nya
+ * tersimpan di Script Properties (SPREADSHEET_ID).
+ *
+ * Spreadsheet yang direkomendasikan (yang kamu sebut dipakai Apps Script):
+ * https://docs.google.com/spreadsheets/d/1P5YPbWzCnhbWbwbi65r5dgwocJcwBjIHCjRM7QlK0Z0/edit
+ *
+ * Cara pakai:
+ * 1. Jalankan setSpreadsheetId() dulu (sekali) — ini mengunci ID spreadsheet
+ * 2. Jalankan setupDatabase()
+ * 3. Deploy Web App (New deployment setiap ubah kode)
  */
 
-// ==================== SETUP (jalankan sekali) ====================
-function setupDatabase() {
-  const PROPS = PropertiesService.getScriptProperties();
+// ====== ID SPREADSHEET YANG MAU DIPAKAI ======
+// Ganti kalau mau pakai spreadsheet lain
+var PREFERRED_SPREADSHEET_ID = '1P5YPbWzCnhbWbwbi65r5dgwocJcwBjIHCjRM7QlK0Z0';
+
+/**
+ * LANGKAH 1: Kunci spreadsheet yang dipakai.
+ * Jalankan fungsi ini SEKALI.
+ */
+function setSpreadsheetId() {
+  var PROPS = PropertiesService.getScriptProperties();
+  PROPS.setProperty('SPREADSHEET_ID', PREFERRED_SPREADSHEET_ID);
+  PROPS.setProperty('ADMIN_PASSWORD', 'Bismillaah');
+
+  var ss = SpreadsheetApp.openById(PREFERRED_SPREADSHEET_ID);
+  Logger.log('✅ SPREADSHEET_ID dikunci ke:');
+  Logger.log(PREFERRED_SPREADSHEET_ID);
+  Logger.log('URL: ' + ss.getUrl());
+  Logger.log('Nama: ' + ss.getName());
+  Logger.log('Password admin: Bismillaah');
+}
+
+/**
+ * Cek spreadsheet mana yang sedang dipakai script.
+ */
+function whichSpreadsheet() {
+  var PROPS = PropertiesService.getScriptProperties();
+  var ssId = PROPS.getProperty('SPREADSHEET_ID');
+  Logger.log('SPREADSHEET_ID di Properties: ' + (ssId || '(kosong)'));
+  Logger.log('PREFERRED di kode: ' + PREFERRED_SPREADSHEET_ID);
+
+  if (!ssId) {
+    Logger.log('❌ Belum di-set. Jalankan setSpreadsheetId() dulu.');
+    return;
+  }
 
   try {
-    // 1. Password
-    PROPS.setProperty('ADMIN_PASSWORD', 'Bismillaah');
-    Logger.log('1/5 Password admin diset: Bismillaah');
-
-    // 2. Spreadsheet
-    let ssId = PROPS.getProperty('SPREADSHEET_ID');
-    let ss;
-
-    if (ssId) {
-      try {
-        ss = SpreadsheetApp.openById(ssId);
-        Logger.log('2/5 Membuka spreadsheet yang sudah ada');
-      } catch (e) {
-        Logger.log('Spreadsheet lama tidak bisa dibuka, buat baru...');
-        ssId = null;
-      }
-    }
-
-    if (!ssId) {
-      ss = SpreadsheetApp.create('NiaeDrinks Database');
-      ssId = ss.getId();
-      PROPS.setProperty('SPREADSHEET_ID', ssId);
-      Logger.log('2/5 Spreadsheet BARU dibuat');
-    }
-
-    Logger.log('   URL: ' + ss.getUrl());
-    Logger.log('   ID : ' + ssId);
-
-    // 3. Sheet Products
-    let sheet = ss.getSheetByName('Products');
+    var ss = SpreadsheetApp.openById(ssId);
+    Logger.log('✅ Bisa dibuka');
+    Logger.log('Nama: ' + ss.getName());
+    Logger.log('URL : ' + ss.getUrl());
+    var sheet = ss.getSheetByName('Products');
     if (sheet) {
-      sheet.clear();
-      Logger.log('3/5 Sheet Products di-clear');
+      Logger.log('Sheet Products: ada, baris = ' + sheet.getLastRow());
     } else {
-      sheet = ss.insertSheet('Products');
-      Logger.log('3/5 Sheet Products dibuat');
+      Logger.log('Sheet Products: BELUM ADA — jalankan setupDatabase()');
     }
-
-    // 4. Header
-    const headers = ['id', 'name', 'price', 'description', 'image', 'active', 'created_at', 'updated_at'];
-    sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
-    sheet.getRange(1, 1, 1, headers.length)
-      .setFontWeight('bold')
-      .setBackground('#8ec5e6')
-      .setFontColor('#17324d');
-    sheet.setFrozenRows(1);
-    Logger.log('4/5 Header ditulis');
-
-    // 5. Seed data
-    const now = new Date().toISOString();
-    const seed = [
-      [1, 'Berry Cloud', 18000, 'Strawberry creamy dengan foam lembut.', 'berry-cloud.webp', true, now, now],
-      [2, 'Blue Lagoon', 20000, 'Blue citrus yang segar dan ringan.', 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=85', true, now, now],
-      [3, 'Pink Matcha', 22000, 'Matcha creamy dengan sentuhan berry.', 'https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&w=800&q=85', true, now, now],
-      [4, 'Ivory Milk', 17000, 'Milky vanilla yang smooth banget.', 'ivory-milk.jpg', true, now, now]
-    ];
-
-    sheet.getRange(2, 1, seed.length, headers.length).setValues(seed);
-    sheet.autoResizeColumns(1, headers.length);
-    Logger.log('5/5 Seed data dimasukkan: ' + seed.length + ' produk');
-
-    // Hapus Sheet1 default
-    try {
-      const sh1 = ss.getSheetByName('Sheet1');
-      if (sh1 && ss.getSheets().length > 1) {
-        ss.deleteSheet(sh1);
-      }
-    } catch (e) {}
-
-    // Verifikasi
-    const lastRow = sheet.getLastRow();
-    Logger.log('==============================');
-    Logger.log('🎉 SETUP SELESAI!');
-    Logger.log('Jumlah baris di sheet: ' + lastRow + ' (1 header + ' + (lastRow - 1) + ' data)');
-    Logger.log('Spreadsheet URL: ' + ss.getUrl());
-    Logger.log('==============================');
-
-  } catch (err) {
-    Logger.log('❌ ERROR di setupDatabase: ' + err.message);
-    Logger.log(err.stack);
-    throw err;
+  } catch (e) {
+    Logger.log('❌ Gagal buka: ' + e.message);
   }
 }
 
 /**
- * Kalau data masih kosong, jalankan fungsi ini saja
- * (tidak perlu setup ulang)
+ * LANGKAH 2: Buat sheet Products + header + data awal.
  */
-function forceSeedData() {
-  const sheet = getSheet();
-  const now = new Date().toISOString();
-  const seed = [
+function setupDatabase() {
+  var PROPS = PropertiesService.getScriptProperties();
+
+  // Pastikan ID sudah di-set
+  var ssId = PROPS.getProperty('SPREADSHEET_ID');
+  if (!ssId) {
+    PROPS.setProperty('SPREADSHEET_ID', PREFERRED_SPREADSHEET_ID);
+    ssId = PREFERRED_SPREADSHEET_ID;
+    Logger.log('SPREADSHEET_ID otomatis di-set ke preferred');
+  }
+  PROPS.setProperty('ADMIN_PASSWORD', 'Bismillaah');
+
+  var ss = SpreadsheetApp.openById(ssId);
+  Logger.log('Menulis ke: ' + ss.getUrl());
+
+  // Sheet Products
+  var sheet = ss.getSheetByName('Products');
+  if (sheet) {
+    sheet.clear();
+    Logger.log('Sheet Products di-clear');
+  } else {
+    sheet = ss.insertSheet('Products');
+    Logger.log('Sheet Products dibuat');
+  }
+
+  var headers = ['id', 'name', 'price', 'description', 'image', 'active', 'created_at', 'updated_at'];
+  sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+  sheet.getRange(1, 1, 1, headers.length)
+    .setFontWeight('bold')
+    .setBackground('#8ec5e6')
+    .setFontColor('#17324d');
+  sheet.setFrozenRows(1);
+
+  var now = new Date().toISOString();
+  var seed = [
     [1, 'Berry Cloud', 18000, 'Strawberry creamy dengan foam lembut.', 'berry-cloud.webp', true, now, now],
     [2, 'Blue Lagoon', 20000, 'Blue citrus yang segar dan ringan.', 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=85', true, now, now],
     [3, 'Pink Matcha', 22000, 'Matcha creamy dengan sentuhan berry.', 'https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&w=800&q=85', true, now, now],
     [4, 'Ivory Milk', 17000, 'Milky vanilla yang smooth banget.', 'ivory-milk.jpg', true, now, now]
   ];
+  sheet.getRange(2, 1, seed.length, headers.length).setValues(seed);
+  sheet.autoResizeColumns(1, headers.length);
 
-  // Clear isi (biarkan header)
-  const last = sheet.getLastRow();
+  Logger.log('==============================');
+  Logger.log('🎉 SETUP SELESAI');
+  Logger.log('Spreadsheet: ' + ss.getUrl());
+  Logger.log('Baris data: ' + (sheet.getLastRow() - 1));
+  Logger.log('==============================');
+}
+
+/**
+ * Isi ulang data kalau kosong (tanpa hapus header).
+ */
+function forceSeedData() {
+  var sheet = getSheet();
+  var now = new Date().toISOString();
+  var seed = [
+    [1, 'Berry Cloud', 18000, 'Strawberry creamy dengan foam lembut.', 'berry-cloud.webp', true, now, now],
+    [2, 'Blue Lagoon', 20000, 'Blue citrus yang segar dan ringan.', 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=85', true, now, now],
+    [3, 'Pink Matcha', 22000, 'Matcha creamy dengan sentuhan berry.', 'https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&w=800&q=85', true, now, now],
+    [4, 'Ivory Milk', 17000, 'Milky vanilla yang smooth banget.', 'ivory-milk.jpg', true, now, now]
+  ];
+  var last = sheet.getLastRow();
   if (last > 1) {
     sheet.getRange(2, 1, last - 1, 8).clearContent();
   }
-
   sheet.getRange(2, 1, seed.length, 8).setValues(seed);
-  Logger.log('Force seed selesai. Baris data: ' + seed.length);
+  Logger.log('Force seed OK. Data: ' + seed.length + ' baris');
 }
 
 // ==================== HELPERS ====================
 function getSheet() {
-  const PROPS = PropertiesService.getScriptProperties();
-  const ssId = PROPS.getProperty('SPREADSHEET_ID');
+  var PROPS = PropertiesService.getScriptProperties();
+  var ssId = PROPS.getProperty('SPREADSHEET_ID');
   if (!ssId) {
-    throw new Error('SPREADSHEET_ID belum ada. Jalankan setupDatabase() dulu.');
+    throw new Error('SPREADSHEET_ID belum di-set. Jalankan setSpreadsheetId() dulu.');
   }
-  const ss = SpreadsheetApp.openById(ssId);
-  const sheet = ss.getSheetByName('Products');
+  var ss = SpreadsheetApp.openById(ssId);
+  var sheet = ss.getSheetByName('Products');
   if (!sheet) {
-    throw new Error('Sheet "Products" tidak ditemukan. Jalankan setupDatabase() lagi.');
+    throw new Error('Sheet "Products" tidak ada. Jalankan setupDatabase().');
   }
   return sheet;
 }
 
 function getAllProducts() {
-  const sheet = getSheet();
-  const data = sheet.getDataRange().getValues();
+  var sheet = getSheet();
+  var data = sheet.getDataRange().getValues();
   if (data.length < 2) return [];
-
-  const headers = data[0];
+  var headers = data[0];
   return data.slice(1).map(function(row) {
-    const obj = {};
-    headers.forEach(function(h, i) {
-      obj[h] = row[i];
-    });
+    var obj = {};
+    headers.forEach(function(h, i) { obj[h] = row[i]; });
     obj.id = Number(obj.id);
     obj.price = Number(obj.price);
     obj.active = (obj.active === true || obj.active === 'TRUE' || obj.active === 1 || obj.active === 'true');
@@ -156,30 +168,24 @@ function getAllProducts() {
 }
 
 function getNextId() {
-  const products = getAllProducts();
+  var products = getAllProducts();
   if (products.length === 0) return 1;
   return Math.max.apply(null, products.map(function(p) { return p.id; })) + 1;
 }
 
 function jsonResponse(data) {
-  return ContentService
-    .createTextOutput(JSON.stringify(data))
+  return ContentService.createTextOutput(JSON.stringify(data))
     .setMimeType(ContentService.MimeType.JSON);
 }
 
 function checkAuth(password) {
-  const stored = PropertiesService.getScriptProperties().getProperty('ADMIN_PASSWORD');
+  var stored = PropertiesService.getScriptProperties().getProperty('ADMIN_PASSWORD');
   return password && stored && String(password) === String(stored);
 }
 
 // ==================== API ====================
-function doGet(e) {
-  return handleRequest(e);
-}
-
-function doPost(e) {
-  return handleRequest(e);
-}
+function doGet(e) { return handleRequest(e); }
+function doPost(e) { return handleRequest(e); }
 
 function handleRequest(e) {
   try {
@@ -190,21 +196,18 @@ function handleRequest(e) {
       action = e.parameter.action;
       payload = e.parameter;
     }
-
     if (e && e.postData && e.postData.contents) {
       try {
         payload = JSON.parse(e.postData.contents);
         action = payload.action || action;
-      } catch (parseErr) {}
+      } catch (err) {}
     }
 
-    // PUBLIC
     if (action === 'list') {
       var products = getAllProducts().filter(function(p) { return p.active; });
       return jsonResponse({ success: true, data: products });
     }
 
-    // ADMIN
     if (!checkAuth(payload.password)) {
       return jsonResponse({ success: false, error: 'Unauthorized' });
     }
@@ -212,11 +215,9 @@ function handleRequest(e) {
     if (action === 'login') {
       return jsonResponse({ success: true, message: 'Login OK' });
     }
-
     if (action === 'adminList') {
       return jsonResponse({ success: true, data: getAllProducts() });
     }
-
     if (action === 'create') {
       var sheet = getSheet();
       var id = getNextId();
@@ -233,13 +234,11 @@ function handleRequest(e) {
       ]);
       return jsonResponse({ success: true, data: { id: id } });
     }
-
     if (action === 'update') {
       var sheet = getSheet();
       var data = sheet.getDataRange().getValues();
       var id = Number(payload.id);
       var found = false;
-
       for (var i = 1; i < data.length; i++) {
         if (Number(data[i][0]) === id) {
           var now = new Date().toISOString();
@@ -259,7 +258,6 @@ function handleRequest(e) {
       if (!found) return jsonResponse({ success: false, error: 'Product not found' });
       return jsonResponse({ success: true });
     }
-
     if (action === 'delete') {
       var sheet = getSheet();
       var data = sheet.getDataRange().getValues();
@@ -274,23 +272,11 @@ function handleRequest(e) {
     }
 
     return jsonResponse({ success: false, error: 'Unknown action: ' + action });
-
   } catch (err) {
     return jsonResponse({ success: false, error: err.message });
   }
 }
 
-// Testing
 function testList() {
   Logger.log(JSON.stringify(getAllProducts(), null, 2));
-}
-
-function showSpreadsheetUrl() {
-  var ssId = PropertiesService.getScriptProperties().getProperty('SPREADSHEET_ID');
-  if (!ssId) {
-    Logger.log('Belum ada SPREADSHEET_ID. Jalankan setupDatabase dulu.');
-    return;
-  }
-  var ss = SpreadsheetApp.openById(ssId);
-  Logger.log('Spreadsheet URL: ' + ss.getUrl());
 }
