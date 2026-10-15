@@ -6,7 +6,7 @@
  */
 
 // ============== CONFIG (hanya URL, aman) ==============
-const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzu-iQHYotQHl8ueyr9eFNmSxuHcaos2dPby1ZBMo4nfo-wgQQYP-1aowkhVBxs6Luzuw/exec'; // Web App URL
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxFoZsYmD5TKU2Un8s0Gl10aigZwr1au_YZGM0dHa0g00oBK8zkSncLdTvGuVKj6jVKrw/exec'; // Web App URL
 
 // ============== STATE ==============
 let products = [];
