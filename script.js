@@ -2,7 +2,7 @@
  * NiaeDrinks — menu, cart, checkout (nama+WA → Sheet Orders), admin panel
  */
 
-const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxFoZsYmD5TKU2Un8s0Gl10aigZwr1au_YZGM0dHa0g00oBK8zkSncLdTvGuVKj6jVKrw/exec';
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwGj0TCSNf77I4_qvIptw3o9lA56O5QWxv42S1_mMAIzbcEaS6FoX5ttezmI_mcaMkgpQ/exec';
 
 let products = [];
 let cart = [];
