@@ -138,17 +138,6 @@ function updateCartUI() {
   var total = cart.reduce(function(s, i) { return s + i.price; }, 0);
   cartTotalEl.textContent = cart.length ? 'Total: ' + formatPrice(total) : '';
 
-  if (cart.length) {
-    var itemsText = cart.map(function(i) { return '- ' + i.name + ' (' + formatPrice(i.price) + ')'; }).join('%0A');
-    checkoutBtn.href = 'https://wa.me/6285150902707?text=' + encodeURIComponent(
-      'Halo NiaeDrinks!\nAku mau pesan:\n' +
-      cart.map(function(i) { return '- ' + i.name + ' (' + formatPrice(i.price) + ')'; }).join('\n') +
-      '\n\nTotal: ' + formatPrice(total)
-    );
-  } else {
-    checkoutBtn.href = 'https://wa.me/6285150902707?text=' + encodeURIComponent('Halo NiaeDrinks, aku mau pesan...');
-  }
-
   document.querySelectorAll('.remove-item').forEach(function(btn) {
     btn.addEventListener('click', function() {
       cart.splice(Number(btn.dataset.index), 1);
@@ -157,11 +146,86 @@ function updateCartUI() {
   });
 }
 
+function showToast(message, type) {
+  var el = document.getElementById('toast');
+  if (!el) {
+    alert(message);
+    return;
+  }
+  el.hidden = false;
+  el.textContent = message;
+  el.className = 'toast show ' + (type || '');
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(function() {
+    el.classList.remove('show');
+  }, 3200);
+}
+
+function buildWaUrl(orderId) {
+  var total = cart.reduce(function(s, i) { return s + i.price; }, 0);
+  var lines = cart.map(function(i) { return '- ' + i.name + ' (' + formatPrice(i.price) + ')'; });
+  var msg = 'Halo NiaeDrinks!\nAku mau pesan:';
+  if (orderId) msg += '\n(No. pesanan: #' + orderId + ')';
+  msg += '\n' + lines.join('\n') + '\n\nTotal: ' + formatPrice(total);
+  return 'https://wa.me/6285150902707?text=' + encodeURIComponent(msg);
+}
+
+async function checkoutAndSave() {
+  if (!cart.length) {
+    showToast('Keranjang masih kosong', 'err');
+    return;
+  }
+
+  var total = cart.reduce(function(s, i) { return s + i.price; }, 0);
+  // ringkas item: "Berry Cloud x1; Blue Lagoon x2"
+  var counts = {};
+  cart.forEach(function(i) {
+    counts[i.name] = (counts[i.name] || 0) + 1;
+  });
+  var itemsStr = Object.keys(counts).map(function(name) {
+    return name + ' x' + counts[name];
+  }).join('; ');
+
+  checkoutBtn.disabled = true;
+  checkoutBtn.classList.add('checkout-btn-loading');
+  var oldText = checkoutBtn.textContent;
+  checkoutBtn.textContent = 'Menyimpan...';
+
+  try {
+    var res = await apiCall('createOrder', {
+      items: itemsStr,
+      total: total,
+      customer_note: ''
+    });
+    var orderId = res.data && res.data.id;
+    showToast('Pesanan #' + orderId + ' tersimpan di database ✓', 'ok');
+
+    // Buka WhatsApp setelah sukses simpan
+    var wa = buildWaUrl(orderId);
+    window.open(wa, '_blank');
+
+    // kosongkan cart
+    cart = [];
+    updateCartUI();
+  } catch (err) {
+    console.error(err);
+    showToast('Gagal simpan: ' + err.message, 'err');
+  } finally {
+    checkoutBtn.disabled = false;
+    checkoutBtn.classList.remove('checkout-btn-loading');
+    checkoutBtn.textContent = oldText;
+  }
+}
+
 document.getElementById('cartBtn').addEventListener('click', function() {
   cartPanel.classList.add('open');
 });
 document.getElementById('closeCart').addEventListener('click', function() {
   cartPanel.classList.remove('open');
+});
+
+document.getElementById('checkoutBtn').addEventListener('click', function() {
+  checkoutAndSave();
 });
 
 // ============== LOGO 4x → ADMIN ==============

@@ -43,3 +43,16 @@
 #adminTable td img{width:48px;height:48px;object-fit:cover;border-radius:8px}
 #adminTable .actions{display:flex;gap:6px;flex-wrap:wrap}
 #adminTable .btn-sm{padding:6px 10px;font-size:.8rem;border-radius:8px}
+
+/* Toast notifikasi */
+.toast{
+  position:fixed;left:50%;bottom:28px;transform:translateX(-50%);
+  background:#24324a;color:#fff;padding:14px 22px;border-radius:999px;
+  font-weight:600;z-index:200;box-shadow:0 12px 30px rgba(0,0,0,.25);
+  max-width:90%;text-align:center;opacity:0;transition:opacity .25s;
+  pointer-events:none;
+}
+.toast.show{opacity:1}
+.toast.ok{background:#1e7a46}
+.toast.err{background:#c0392b}
+.checkout-btn-loading{opacity:.7;pointer-events:none}

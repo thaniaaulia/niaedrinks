@@ -1,56 +1,35 @@
-# NiaeDrinks — Setup (versi jelas 1 spreadsheet)
+# NiaeDrinks — Setup (Produk + Pesanan ke Google Sheet)
 
-## Spreadsheet yang DIPAKAI
-Hanya satu ini:
-
+## Spreadsheet yang dipakai
 https://docs.google.com/spreadsheets/d/1P5YPbWzCnhbWbwbi65r5dgwocJcwBjIHCjRM7QlK0Z0/edit
 
-Spreadsheet lain (1W7Tx6Qad...) **TIDAK dipakai**. Abaikan saja.
+Akan ada 2 sheet:
+- **Products** → daftar menu (dikelola admin)
+- **Orders** → pesanan customer saat klik "Simpan pesanan & Chat WhatsApp"
 
----
+## Setup Apps Script (wajib berurutan)
 
-## Urutan wajib di Apps Script
+1. Paste **Code.gs** terbaru → Save
+2. Run **`setSpreadsheetId`**
+3. Run **`setupDatabase`** (membuat Products + Orders)
+4. Cek spreadsheet: harus ada sheet Products & Orders
+5. **Deploy → New deployment**
+   - Type: Web app
+   - Execute as: Me
+   - Who has access: **Anyone**
+6. Copy URL → paste ke `script.js` di baris `WEB_APP_URL`
+7. Upload `script.js`, `index.html`, `style.css` ke GitHub Pages
 
-### 1. Paste Code.gs terbaru
-Hapus semua kode lama → paste Code.gs dari zip ini → Save.
+## Alur customer
+1. Add to Cart
+2. Klik **Simpan pesanan & Chat WhatsApp**
+3. Sistem **menyimpan ke sheet Orders** dulu
+4. Muncul notifikasi sukses/gagal di layar
+5. Jika sukses → WhatsApp terbuka dengan isi pesanan + nomor order
 
-### 2. Kunci spreadsheet (sekali)
-- Dropdown fungsi → pilih **`setSpreadsheetId`**
-- Klik **Run**
-- View → Executions → pastikan log bilang URL spreadsheet di atas
+## Admin
+Klik logo 4x → password `Bismillaah` → CRUD produk
 
-### 3. Buat sheet + data
-- Dropdown → **`setupDatabase`**
-- Klik **Run**
-- Buka spreadsheet di atas → harus ada sheet **Products** berisi 4 produk
-
-### 4. Cek (opsional)
-- Jalankan **`whichSpreadsheet`** → lihat log URL-nya
-- Atau **`forceSeedData`** kalau data masih kosong
-
-### 5. Deploy Web App
-1. Deploy → **New deployment** (penting: New, bukan Manage yang lama)
-2. Type: Web app
-3. Execute as: **Me**
-4. Who has access: **Anyone**
-5. Deploy → **copy URL baru**
-6. Paste URL itu ke `script.js` baris:
-   ```js
-   const WEB_APP_URL = 'https://script.google.com/macros/s/...../exec';
-   ```
-7. Upload script.js ke GitHub Pages
-
----
-
-## Kenapa dulu bingung?
-- Kamu buka Apps Script dari spreadsheet **1W7Tx6Qad...** (container-bound)
-- Sementara script menyimpan data ke spreadsheet yang ID-nya di Script Properties
-- Sekarang ID dikunci ke **1P5YPbWz...** saja
-
-## Admin panel
-Klik logo **niaedrinks** 4x → password: `Bismillaah`
-
-## Kalau CRUD masih gagal
-1. Pastikan sudah **New deployment** setelah ubah Code.gs
-2. WEB_APP_URL di script.js harus URL deployment terbaru
-3. Jalankan `whichSpreadsheet` → pastikan URL-nya 1P5YPbWz...
+## Tes dari editor Apps Script
+- `testOrder` → menulis 1 baris uji ke sheet Orders
+- `whichSpreadsheet` → cek URL & jumlah baris
