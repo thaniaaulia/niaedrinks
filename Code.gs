@@ -192,15 +192,26 @@ function handleRequest(e) {
     var action = 'list';
     var payload = {};
 
-    if (e && e.parameter && e.parameter.action) {
-      action = e.parameter.action;
+    // GET query params (cara utama — andal)
+    if (e && e.parameter) {
       payload = e.parameter;
+      action = payload.action || 'list';
     }
+
+    // POST body (cadangan)
     if (e && e.postData && e.postData.contents) {
       try {
-        payload = JSON.parse(e.postData.contents);
+        var body = JSON.parse(e.postData.contents);
+        for (var k in body) {
+          if (body.hasOwnProperty(k)) payload[k] = body[k];
+        }
         action = payload.action || action;
       } catch (err) {}
+    }
+
+    // Normalisasi boolean active dari string query
+    if (payload.active !== undefined) {
+      payload.active = (payload.active === true || payload.active === 'true' || payload.active === 'TRUE' || payload.active === '1' || payload.active === 1);
     }
 
     if (action === 'list') {
@@ -222,13 +233,14 @@ function handleRequest(e) {
       var sheet = getSheet();
       var id = getNextId();
       var now = new Date().toISOString();
+      var activeVal = payload.active !== false && payload.active !== 'false';
       sheet.appendRow([
         id,
         payload.name || '',
         Number(payload.price) || 0,
         payload.description || '',
         payload.image || '',
-        payload.active !== false && payload.active !== 'false',
+        activeVal,
         now,
         now
       ]);
@@ -246,10 +258,7 @@ function handleRequest(e) {
           if (payload.price !== undefined) sheet.getRange(i + 1, 3).setValue(Number(payload.price));
           if (payload.description !== undefined) sheet.getRange(i + 1, 4).setValue(payload.description);
           if (payload.image !== undefined) sheet.getRange(i + 1, 5).setValue(payload.image);
-          if (payload.active !== undefined) {
-            var activeVal = payload.active === true || payload.active === 'true' || payload.active === 1;
-            sheet.getRange(i + 1, 6).setValue(activeVal);
-          }
+          if (payload.active !== undefined) sheet.getRange(i + 1, 6).setValue(!!payload.active);
           sheet.getRange(i + 1, 8).setValue(now);
           found = true;
           break;
@@ -275,6 +284,14 @@ function handleRequest(e) {
   } catch (err) {
     return jsonResponse({ success: false, error: err.message });
   }
+}
+
+function testWrite() {
+  var sheet = getSheet();
+  var now = new Date().toISOString();
+  var id = getNextId();
+  sheet.appendRow([id, 'Test dari Editor', 9999, 'Ditulis lewat testWrite()', '', true, now, now]);
+  Logger.log('testWrite OK, id=' + id + ', baris sekarang=' + sheet.getLastRow());
 }
 
 function testList() {
