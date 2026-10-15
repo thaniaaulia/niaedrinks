@@ -1,35 +1,20 @@
-# NiaeDrinks — Setup (Produk + Pesanan ke Google Sheet)
+# NiaeDrinks v3 — Admin + Pesanan (nama & WA)
 
-## Spreadsheet yang dipakai
+## Spreadsheet
 https://docs.google.com/spreadsheets/d/1P5YPbWzCnhbWbwbi65r5dgwocJcwBjIHCjRM7QlK0Z0/edit
 
-Akan ada 2 sheet:
-- **Products** → daftar menu (dikelola admin)
-- **Orders** → pesanan customer saat klik "Simpan pesanan & Chat WhatsApp"
+- **Products** — menu
+- **Orders** — id, created_at, customer_name, customer_wa, items, total, customer_note, status  
+  status: `new` | `answered` | `served`
 
-## Setup Apps Script (wajib berurutan)
+## Setup (setelah ganti Code.gs)
+1. Run `setSpreadsheetId`
+2. Run `setupDatabase` (atau cukup buka site & createOrder — sheet Orders di-migrasi otomatis)
+3. **Deploy → New deployment** → Anyone
+4. Update `WEB_APP_URL` di script.js
+5. Upload index.html, style.css, script.js ke GitHub Pages
 
-1. Paste **Code.gs** terbaru → Save
-2. Run **`setSpreadsheetId`**
-3. Run **`setupDatabase`** (membuat Products + Orders)
-4. Cek spreadsheet: harus ada sheet Products & Orders
-5. **Deploy → New deployment**
-   - Type: Web app
-   - Execute as: Me
-   - Who has access: **Anyone**
-6. Copy URL → paste ke `script.js` di baris `WEB_APP_URL`
-7. Upload `script.js`, `index.html`, `style.css` ke GitHub Pages
-
-## Alur customer
-1. Add to Cart
-2. Klik **Simpan pesanan & Chat WhatsApp**
-3. Sistem **menyimpan ke sheet Orders** dulu
-4. Muncul notifikasi sukses/gagal di layar
-5. Jika sukses → WhatsApp terbuka dengan isi pesanan + nomor order
-
-## Admin
-Klik logo 4x → password `Bismillaah` → CRUD produk
-
-## Tes dari editor Apps Script
-- `testOrder` → menulis 1 baris uji ke sheet Orders
-- `whichSpreadsheet` → cek URL & jumlah baris
+## Fitur baru
+- Tombol **Admin** di header → password `Bismillaah`
+- Panel: tab **Pesanan** (lihat / ubah status) + tab **Produk** (CRUD)
+- Checkout: minta **nama + nomor WA** → simpan ke Orders → notifikasi → buka WA

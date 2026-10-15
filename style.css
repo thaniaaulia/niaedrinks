@@ -56,3 +56,35 @@
 .toast.ok{background:#1e7a46}
 .toast.err{background:#c0392b}
 .checkout-btn-loading{opacity:.7;pointer-events:none}
+
+/* Admin nav button */
+.admin-nav-btn{
+  border:1px solid #f0b8c9;background:transparent;color:#24324a;
+  padding:6px 12px;border-radius:999px;font-weight:700;cursor:pointer;font-size:.9rem;
+}
+.admin-nav-btn:hover{background:#fff3f7}
+
+/* Tabs */
+.admin-tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.tab-btn{
+  border:1px solid #e0e0e0;background:#fff;padding:8px 16px;border-radius:999px;
+  font-weight:700;cursor:pointer;font-family:inherit;
+}
+.tab-btn.active{background:#8ec5e6;border-color:#8ec5e6;color:#17324d}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+
+/* Order status badges */
+.badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:.78rem;font-weight:700}
+.badge-new{background:#fff3cd;color:#856404}
+.badge-answered{background:#cce5ff;color:#004085}
+.badge-served{background:#d4edda;color:#155724}
+
+#orderFilter{
+  padding:8px 12px;border-radius:12px;border:1px solid #e0e0e0;font-family:inherit;
+}
+
+@media(max-width:900px){
+  nav{display:flex !important;flex-wrap:wrap;gap:10px;font-size:.85rem}
+  .admin-nav-btn{font-size:.8rem;padding:4px 10px}
+}

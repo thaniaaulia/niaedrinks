@@ -23,6 +23,7 @@
       <a href="#menu">Menu</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
+      <button type="button" class="admin-nav-btn" id="adminNavBtn">Admin</button>
     </nav>
     <button class="cart-btn" id="cartBtn">🛒 <span id="cartCount">0</span></button>
   </div>
@@ -103,7 +104,23 @@
   <button type="button" id="checkoutBtn" class="btn primary full">Simpan pesanan &amp; Chat WhatsApp</button>
 </div>
 
-<!-- ========== ADMIN LOGIN ========== -->
+<!-- Checkout: nama + WA -->
+<div class="modal-overlay" id="checkoutModal">
+  <div class="modal">
+    <h3>Data pemesan</h3>
+    <p>Isi nama dan nomor WA untuk tindak lanjut pesanan.</p>
+    <label>Nama</label>
+    <input type="text" id="checkoutName" placeholder="Nama kamu" required autocomplete="name">
+    <label>Nomor WhatsApp</label>
+    <input type="tel" id="checkoutWa" placeholder="08xxxxxxxxxx" required autocomplete="tel">
+    <div class="modal-actions">
+      <button type="button" class="btn ghost" id="cancelCheckout">Batal</button>
+      <button type="button" class="btn primary" id="confirmCheckout">Simpan &amp; Chat WA</button>
+    </div>
+  </div>
+</div>
+
+<!-- Admin login -->
 <div class="modal-overlay" id="adminLoginModal">
   <div class="modal">
     <h3>Admin Login</h3>
@@ -117,39 +134,80 @@
   </div>
 </div>
 
-<!-- ========== ADMIN PANEL ========== -->
+<!-- Admin panel -->
 <div class="modal-overlay admin-panel" id="adminPanel">
   <div class="modal wide">
     <div class="admin-header">
-      <h3>Panel Admin — Produk</h3>
+      <h3>Panel Admin</h3>
       <button class="btn ghost" id="closeAdmin">Tutup</button>
     </div>
-    <div class="admin-toolbar">
-      <button class="btn primary" id="btnAddProduct">+ Tambah Produk</button>
-      <button class="btn ghost" id="btnRefresh">Refresh</button>
+
+    <div class="admin-tabs">
+      <button type="button" class="tab-btn active" data-tab="orders">Pesanan</button>
+      <button type="button" class="tab-btn" data-tab="products">Produk (CRUD)</button>
     </div>
-    <div class="table-wrap">
-      <table id="adminTable">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nama</th>
-            <th>Harga</th>
-            <th>Deskripsi</th>
-            <th>Gambar</th>
-            <th>Aktif</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody id="adminTableBody">
-          <tr><td colspan="7">Memuat...</td></tr>
-        </tbody>
-      </table>
+
+    <!-- Tab Pesanan -->
+    <div class="tab-pane active" id="tabOrders">
+      <div class="admin-toolbar">
+        <button class="btn ghost" id="btnRefreshOrders">Refresh pesanan</button>
+        <select id="orderFilter">
+          <option value="all">Semua status</option>
+          <option value="new">Baru</option>
+          <option value="answered">Sudah dijawab</option>
+          <option value="served">Sudah dilayani</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table id="ordersTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Waktu</th>
+              <th>Nama</th>
+              <th>WA</th>
+              <th>Item</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="ordersTableBody">
+            <tr><td colspan="8">Memuat...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tab Produk -->
+    <div class="tab-pane" id="tabProducts">
+      <div class="admin-toolbar">
+        <button class="btn primary" id="btnAddProduct">+ Tambah Produk</button>
+        <button class="btn ghost" id="btnRefresh">Refresh produk</button>
+      </div>
+      <div class="table-wrap">
+        <table id="adminTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nama</th>
+              <th>Harga</th>
+              <th>Deskripsi</th>
+              <th>Gambar</th>
+              <th>Aktif</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="adminTableBody">
+            <tr><td colspan="7">Memuat...</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- ========== FORM ADD / EDIT ========== -->
+<!-- Form produk -->
 <div class="modal-overlay" id="productFormModal">
   <div class="modal">
     <h3 id="formTitle">Tambah Produk</h3>
