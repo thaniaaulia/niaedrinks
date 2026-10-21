@@ -5,54 +5,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NiaeDrinks | Gen Z Drinks</title>
-  <meta name="description" content="NiaeDrinks — Soft colors. Fresh drinks. Good vibes. Online drink store dengan minuman kekinian yang fresh, aesthetic, dan cocok buat nemenin hari kamu.">
-  
-  <!-- Open Graph / Facebook / WhatsApp / Telegram -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://nnthan.my.id/">
-  <meta property="og:title" content="NiaeDrinks | Gen Z Drinks">
-  <meta property="og:description" content="Soft colors. Fresh drinks. Good vibes. Minuman kekinian yang fresh, aesthetic, dan cocok buat nemenin hari kamu. 🩷">
-  <meta property="og:image" content="https://nnthan.my.id/og-image-v2.jpg">
-  <meta property="og:image:secure_url" content="https://nnthan.my.id/og-image-v2.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:type" content="image/jpeg">
-  <meta property="og:image:alt" content="NiaeDrinks - Soft colors. Fresh drinks. Good vibes.">
-  <meta property="og:site_name" content="NiaeDrinks">
-  <meta property="og:locale" content="id_ID">
+  <meta name="description" content="NiaeDrinks — minuman kekinian yang fresh, aesthetic, dan cocok buat nemenin hari kamu." />
+  <link rel="canonical" href="https://nnthan.my.id/" />
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://nnthan.my.id/">
-  <meta name="twitter:title" content="NiaeDrinks | Gen Z Drinks">
-  <meta name="twitter:description" content="Soft colors. Fresh drinks. Good vibes. Minuman kekinian yang fresh, aesthetic, dan cocok buat nemenin hari kamu. 🩷">
-  <meta name="twitter:image" content="https://nnthan.my.id/og-image-v2.jpg">
-  <meta name="twitter:image:alt" content="NiaeDrinks - Soft colors. Fresh drinks. Good vibes.">
+  <!-- Open Graph: preview saat link dibagikan ke WhatsApp dan media sosial -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="NiaeDrinks" />
+  <meta property="og:title" content="NiaeDrinks | Soft Colors. Fresh Drinks. Good Vibes." />
+  <meta property="og:description" content="Temukan minuman fresh, creamy, dan fruity dari NiaeDrinks." />
+  <meta property="og:url" content="https://nnthan.my.id/" />
+  <meta property="og:image" content="https://nnthan.my.id/og-image.png" />
+  <meta property="og:image:secure_url" content="https://nnthan.my.id/og-image.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="NiaeDrinks — Soft Colors, Fresh Drinks, Good Vibes" />
+  <meta property="og:locale" content="id_ID" />
 
-  <!-- Extra for better crawler support -->
-  <meta itemprop="name" content="NiaeDrinks | Gen Z Drinks">
-  <meta itemprop="description" content="Soft colors. Fresh drinks. Good vibes. Minuman kekinian yang fresh, aesthetic, dan cocok buat nemenin hari kamu.">
-  <meta itemprop="image" content="https://nnthan.my.id/og-image-v2.jpg">
-
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-  <link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png">
-  <meta name="theme-color" content="#f4b6c8">
-  <link rel="manifest" href="site.webmanifest">
+  <!-- Twitter / X card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="NiaeDrinks | Soft Colors. Fresh Drinks. Good Vibes." />
+  <meta name="twitter:description" content="Temukan minuman fresh, creamy, dan fruity dari NiaeDrinks." />
+  <meta name="twitter:image" content="https://nnthan.my.id/og-image.png" />
   <link rel="preconnect" href="https://images.unsplash.com">
   <link rel="stylesheet" href="style.css">
 </head>
-<body data-shlock-mode="ultimate" data-shlock-domain="" data-shlock-brand="niaedrinks" data-shlock-social="https://www.instagram.com/niawlia_/,https://www.tiktok.com/@nioyyee,https://www.dailymotion.com/video/xb0t53a">
-
+<body>
+  <body data-shlock-mode="ultimate" data-shlock-domain="" data-shlock-brand="niaedrinks" data-shlock-social="https://www.instagram.com/niawlia_/,https://www.tiktok.com/@nioyyee,https://www.dailymotion.com/video/xb0t53a">
 <header class="navbar">
   <div class="container nav-wrap">
-    <a class="logo" href="#" id="logoBtn">niae<span>drinks</span></a>
+    <a class="logo" href="#">niae<span>drinks</span></a>
     <nav>
       <a href="#home">Home</a>
       <a href="#menu">Menu</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
-      <button type="button" class="admin-nav-btn" id="adminNavBtn">Admin</button>
     </nav>
     <button class="cart-btn" id="cartBtn">🛒 <span id="cartCount">0</span></button>
   </div>
@@ -70,7 +57,7 @@
         <a class="btn ghost" href="#about">Our Story</a>
       </div>
       <div class="stats">
-        <div><strong id="statDrinks">12+</strong><span>Signature Drinks</span></div>
+        <div><strong>12+</strong><span>Signature Drinks</span></div>
         <div><strong>4.9★</strong><span>Happy Customers</span></div>
         <div><strong>Daily</strong><span>Fresh Made</span></div>
       </div>
@@ -90,8 +77,39 @@
       </div>
       <p>Minuman favorit dengan rasa creamy, fruity, dan refreshing.</p>
     </div>
-    <div class="product-grid" id="productGrid">
-      <div class="loading">Memuat menu...</div>
+    <div class="product-grid">
+      <article class="card">
+        <img src="berry-cloud.webp" alt="Berry Cloud">
+        <div class="card-body">
+          <div class="card-top"><h3>Berry Cloud</h3><span>Rp18k</span></div>
+          <p>Strawberry creamy dengan foam lembut.</p>
+          <button class="add-btn" data-name="Berry Cloud">Add to Cart</button>
+        </div>
+      </article>
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=85" alt="Blue Lagoon">
+        <div class="card-body">
+          <div class="card-top"><h3>Blue Lagoon</h3><span>Rp20k</span></div>
+          <p>Blue citrus yang segar dan ringan.</p>
+          <button class="add-btn" data-name="Blue Lagoon">Add to Cart</button>
+        </div>
+      </article>
+      <article class="card">
+        <img src="https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&w=800&q=85" alt="Pink Matcha">
+        <div class="card-body">
+          <div class="card-top"><h3>Pink Matcha</h3><span>Rp22k</span></div>
+          <p>Matcha creamy dengan sentuhan berry.</p>
+          <button class="add-btn" data-name="Pink Matcha">Add to Cart</button>
+        </div>
+      </article>
+      <article class="card">
+        <img src="ivory-milk.jpg" alt="Ivory Milk">
+        <div class="card-body">
+          <div class="card-top"><h3>Ivory Milk</h3><span>Rp17k</span></div>
+          <p>Milky vanilla yang smooth banget.</p>
+          <button class="add-btn" data-name="Ivory Milk">Add to Cart</button>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -119,150 +137,20 @@
       <h2>Ready for your next favorite drink?</h2>
       <p>Klik WhatsApp dan pesan minuman favoritmu sekarang.</p>
     </div>
-    <a class="btn primary" href="https://wa.me/6285150902707?text=Halo%20NiaeDrinks%2C%20aku%20mau%20pesan..." target="_blank">Chat WhatsApp</a>
+    <a class="btn primary" href="https://wa.me/6285150902707?text=kaka%20webnya%20kerennn%2C%20aku%20pesen%201%20......%20drinks%20dong." target="_blank">Chat WhatsApp</a>
   </div>
 </section>
 </main>
 
-<a class="wa-float" href="https://wa.me/6285150902707?text=Halo%20NiaeDrinks%2C%20aku%20mau%20pesan..." target="_blank" aria-label="Chat WhatsApp">💬</a>
+<a class="wa-float" href="https://wa.me/6285150902707?text=kaka%20webnya%20kerennn%2C%20aku%20pesen%201%20......%20drinks%20dong." target="_blank" aria-label="Chat WhatsApp">💬</a>
 
 <div class="cart-panel" id="cartPanel">
   <div class="cart-head"><h3>Your Cart</h3><button id="closeCart">×</button></div>
   <ul id="cartList"></ul>
-  <div id="cartTotal" class="cart-total"></div>
-  <button type="button" id="checkoutBtn" class="btn primary full">Simpan pesanan &amp; Chat WhatsApp</button>
+  <a id="checkoutBtn" class="btn primary full" href="https://wa.me/6285150902707?text=kaka%20webnya%20kerennn%2C%20aku%20pesen%201%20......%20drinks%20dong." target="_blank">Checkout via WhatsApp</a>
 </div>
 
-<!-- Checkout: nama + WA -->
-<div class="modal-overlay" id="checkoutModal">
-  <div class="modal">
-    <h3>Data pemesan</h3>
-    <p>Isi nama dan nomor WA untuk tindak lanjut pesanan.</p>
-    <label>Nama</label>
-    <input type="text" id="checkoutName" placeholder="Nama kamu" required autocomplete="name">
-    <label>Nomor WhatsApp</label>
-    <input type="tel" id="checkoutWa" placeholder="08xxxxxxxxxx" required autocomplete="tel">
-    <div class="modal-actions">
-      <button type="button" class="btn ghost" id="cancelCheckout">Batal</button>
-      <button type="button" class="btn primary" id="confirmCheckout">Simpan &amp; Chat WA</button>
-    </div>
-  </div>
-</div>
-
-<!-- Admin login -->
-<div class="modal-overlay" id="adminLoginModal">
-  <div class="modal">
-    <h3>Admin Login</h3>
-    <p>Masukkan password admin</p>
-    <input type="password" id="adminPassword" placeholder="Password" autocomplete="off">
-    <div class="modal-actions">
-      <button class="btn ghost" id="cancelLogin">Batal</button>
-      <button class="btn primary" id="submitLogin">Masuk</button>
-    </div>
-    <p class="error" id="loginError"></p>
-  </div>
-</div>
-
-<!-- Admin panel -->
-<div class="modal-overlay admin-panel" id="adminPanel">
-  <div class="modal wide">
-    <div class="admin-header">
-      <h3>Panel Admin</h3>
-      <button class="btn ghost" id="closeAdmin">Tutup</button>
-    </div>
-
-    <div class="admin-tabs">
-      <button type="button" class="tab-btn active" data-tab="orders">Pesanan</button>
-      <button type="button" class="tab-btn" data-tab="products">Produk (CRUD)</button>
-    </div>
-
-    <!-- Tab Pesanan -->
-    <div class="tab-pane active" id="tabOrders">
-      <div class="admin-toolbar">
-        <button class="btn ghost" id="btnRefreshOrders">Refresh pesanan</button>
-        <select id="orderFilter">
-          <option value="all">Semua status</option>
-          <option value="new">Baru</option>
-          <option value="answered">Sudah dijawab</option>
-          <option value="served">Sudah dilayani</option>
-        </select>
-      </div>
-      <div class="table-wrap">
-        <table id="ordersTable">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Waktu</th>
-              <th>Nama</th>
-              <th>WA</th>
-              <th>Item</th>
-              <th>Total</th>
-              <th>Status</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
-          <tbody id="ordersTableBody">
-            <tr><td colspan="8">Memuat...</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Tab Produk -->
-    <div class="tab-pane" id="tabProducts">
-      <div class="admin-toolbar">
-        <button class="btn primary" id="btnAddProduct">+ Tambah Produk</button>
-        <button class="btn ghost" id="btnRefresh">Refresh produk</button>
-      </div>
-      <div class="table-wrap">
-        <table id="adminTable">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nama</th>
-              <th>Harga</th>
-              <th>Deskripsi</th>
-              <th>Gambar</th>
-              <th>Aktif</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
-          <tbody id="adminTableBody">
-            <tr><td colspan="7">Memuat...</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Form produk -->
-<div class="modal-overlay" id="productFormModal">
-  <div class="modal">
-    <h3 id="formTitle">Tambah Produk</h3>
-    <form id="productForm">
-      <input type="hidden" id="formId">
-      <label>Nama</label>
-      <input type="text" id="formName" required>
-      <label>Harga (contoh: 18000)</label>
-      <input type="number" id="formPrice" required min="0">
-      <label>Deskripsi</label>
-      <textarea id="formDesc" rows="2"></textarea>
-      <label>URL Gambar</label>
-      <input type="text" id="formImage" placeholder="https://... atau nama file lokal">
-      <label class="checkbox">
-        <input type="checkbox" id="formActive" checked> Aktif (tampil di menu)
-      </label>
-      <div class="modal-actions">
-        <button type="button" class="btn ghost" id="cancelForm">Batal</button>
-        <button type="submit" class="btn primary">Simpan</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<div id="toast" class="toast" hidden></div>
 <script src="script.js"></script>
 <script src="https://silverhawk.web.id/lock/lock.js"></script>
-</body>
+  </body>
 </html>
