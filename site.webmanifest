@@ -1,12 +1,14 @@
 {
   "name": "NiaeDrinks",
   "short_name": "NiaeDrinks",
-  "start_url": "./",
+  "description": "Soft colors. Fresh drinks. Good vibes. Online drink store Gen Z aesthetic.",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#fffaf2",
   "theme_color": "#f4b6c8",
+  "lang": "id",
   "icons": [
-    {"src": "favicon-192.png", "sizes": "192x192", "type": "image/png"},
-    {"src": "favicon-512.png", "sizes": "512x512", "type": "image/png"}
+    {"src": "/favicon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
+    {"src": "/favicon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
   ]
 }
