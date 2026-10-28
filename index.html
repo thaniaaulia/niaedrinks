@@ -45,11 +45,16 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": "FoodEstablishment",
     "name": "NiaeDrinks",
+    "alternateName": "niaedrinks",
     "url": "https://nnthan.my.id/",
     "logo": "https://nnthan.my.id/favicon-512.png",
-    "description": "Online drink store Gen Z aesthetic. Minuman kekinian yang fresh, creamy, dan aesthetic.",
+    "image": "https://nnthan.my.id/og-image.png",
+    "description": "Online drink store Gen Z aesthetic. Minuman kekinian yang fresh, creamy, fruity, dan aesthetic. Order via WhatsApp.",
+    "servesCuisine": ["Beverages", "Drinks", "Cafe"],
+    "priceRange": "Rp",
+    "telephone": "+6285150902707",
     "sameAs": [
       "https://www.instagram.com/niawlia_/",
       "https://www.tiktok.com/@nioyyee"
@@ -57,7 +62,21 @@
     "contactPoint": {
       "@type": "ContactPoint",
       "contactType": "customer service",
-      "url": "https://wa.me/6285150902707"
+      "telephone": "+6285150902707",
+      "url": "https://wa.me/6285150902707",
+      "availableLanguage": ["Indonesian", "id"]
+    },
+    "potentialAction": {
+      "@type": "OrderAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://wa.me/6285150902707",
+        "actionPlatform": [
+          "http://schema.org/DesktopWebPlatform",
+          "http://schema.org/MobileWebPlatform"
+        ]
+      },
+      "deliveryMethod": "http://purl.org/goodrelations/v1#DeliveryModeOwnFleet"
     }
   }
   </script>
@@ -71,8 +90,33 @@
     "inLanguage": "id-ID",
     "publisher": {
       "@type": "Organization",
-      "name": "NiaeDrinks"
+      "name": "NiaeDrinks",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://nnthan.my.id/favicon-512.png"
+      }
     }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "NiaeDrinks | Soft Colors. Fresh Drinks. Good Vibes.",
+    "url": "https://nnthan.my.id/",
+    "description": "NiaeDrinks — online drink store Gen Z. Minuman kekinian fresh, creamy, aesthetic. Order Berry Cloud, Pink Matcha, Ivory Milk & more via WhatsApp.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "NiaeDrinks",
+      "url": "https://nnthan.my.id/"
+    },
+    "primaryImageOfPage": {
+      "@type": "ImageObject",
+      "url": "https://nnthan.my.id/og-image.png",
+      "width": 1200,
+      "height": 630
+    },
+    "inLanguage": "id-ID"
   }
   </script>
 
